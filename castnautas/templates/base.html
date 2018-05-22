@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <title>Castnautas Podcast</title>
+
+    {% load static %}
+    <!-- CSS
+    ================================================== -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/prettyPhoto.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/flexslider.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/custom-styles.css' %}">
+
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <link rel="stylesheet" href="css/style-ie.css"/>
+    <![endif]-->
+
+    <!-- Favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="{% static 'img/gallery/fav.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/apple-touch-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{%static 'img/apple-touch-icon-114x114.png'%}">
+
+    <!-- JS
+    ================================================== -->
+    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script src="{% static 'img/apple-touch-icon-114x114.png' %}"></script>
+    <script src="{% static 'js/jquery.prettyPhoto.js' %}"></script>
+    <script src="{% static 'js/jquery.flexslider.js' %}"></script>
+    <script src="{% static 'js/jquery.custom.js' %}"></script>
+    <script type="{% static 'js/jquery.custom.js' %}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#btn-blog-next").click(function () {
+              $('#blogCarousel').carousel('next')
+            });
+             $("#btn-blog-prev").click(function () {
+              $('#blogCarousel').carousel('prev')
+            });
+
+             $("#btn-client-next").click(function () {
+              $('#clientCarousel').carousel('next')
+            });
+             $("#btn-client-prev").click(function () {
+              $('#clientCarousel').carousel('prev')
+            });
+
+        });
+
+         $(window).load(function(){
+
+            $('.flexslider').flexslider({
+                animation: "slide",
+                slideshow: true,
+                start: function(slider){
+                  $('body').removeClass('loading');
+                }
+            });
+        });
+
+    </script>
+
+
+</head>
+<body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.12&appId=194038274717155&autoLogAppEvents=1';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+<div class="navbar"  style="position: fixed; top: 0; width: 100%; z-index: 3000 ; border-radius:initial">
+    <div class="navbar-inner" style="background: #0e0e0e; border-radius:initial;border-color: black">
+        <div class="container">
+ <div style="position: fixed;"> <img src="{% static 'img/gallery/logo_cast_nautas.png' %}" style="height: 20%;width: 20%"></div>
+            <ul class="nav pull-left" style="padding-left: 100px" >
+
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="page-full-width.htm">Programas <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/busca/boteco">Boteco Cósmico</a></li>
+                        <li><a href=/busca/castnautas-jogam">CastNautas Jogam</a></li>
+                        <li><a href="/busca/audio-dramas">Audio Dramas</a></li>
+                    </ul>
+                </li>
+                <li><a href="/busca/artigos">Artigos</a></li>
+
+                 <li><a href="/sobre">Sobre</a></li>
+            </ul>
+
+            <ul class="nav pull-right ">
+
+                <li ><a  href="https://www.facebook.com/castnautas/" style="padding: 8px 4px 0px;">
+                    <img src="{% static 'img/gallery/ico-facebook.png'%}" style="height: 25px;width: 25px;" ></a>
+
+                </li>
+                <li >
+                    <a href="https://www.instagram.com/castnautas/" style="padding: 8px 4px 0px;">
+                        <img src="{% static 'img/gallery/ico-instagram.png'%}" style="height: 25px;width: 25px;" ></a></li>
+                <li >
+                    <a href="https://twitter.com/castnautas" style="padding: 8px 4px 0px;">
+                        <img src="{% static 'img/gallery/ico-twitter.png'%}" style="height: 25px;width: 25px" ></a></li>
+                <li >
+                    <a href="#" style="padding: 6px 4px 0px;">
+                        <img src="{% static 'img/gallery/ico-feed.png'%}" style="height: 25px;width: 25px;" ></a></li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container" style="padding-top: 80px">
+
+         {% block headline %}
+
+
+         {% endblock headline %}
+
+    <div class="row">
+
+        <!-- Blog Posts
+        ================================================== -->
+        <div class="span8 blog">
+            {% block body %}
+            {% endblock body %}
+        </div>
+
+        <!-- Blog Sidebar
+        ================================================== -->
+        <div class="span4 sidebar">
+
+            <!--Search-->
+            <section>
+                <div class="input-append">
+                    <form action="#">
+                        <input id="appendedInputButton" size="16" type="text" placeholder="Search"><button class="btn" type="button"><i class="icon-search"></i></button>
+                    </form>
+                </div>
+            </section>
+
+            <!--Programs-->
+            <h5 class="title-bg">Programas</h5>
+
+            <ul class="post-category-list">
+                <li><a href="page-full-width.htm"><i class="icon-tags"></i>Boteco Cósmico</a></li>
+                <li><a href="page-right-sidebar.htm"><i class="icon-tags"></i>CastNautas Jogam</a></li>
+                <li><a href="page-left-sidebar.htm"><i class="icon-tags"></i>Audio Dramas</a></li>
+            </ul>
+
+            <!--Tag-->
+            <h5 class="title-bg">Tags</h5>
+            <ul class="post-category-list">
+                <li><a href="#"><span class="icon-tags"></span>  RPG</a></li>
+                <li><a href="#"><span class="icon-tags"></span>  Nerd</a></li>
+                <li><a href="#"><span class="icon-tags"></span>  Cinema</a></li>
+                <li><a href="#"><span class="icon-tags"></span>  Quadrinhos</a></li>
+                <li><a href="#"><span class="icon-tags"></span>  Seriado</a></li>
+            </ul>
+
+
+            <!--Tabbed Content-->
+
+
+            <!--Twitch Widget-->
+            <h5 class="title-bg">Castautas Twitch</h5>
+           <iframe src="https://player.twitch.tv/?autoplay=false&video=v225408461" frameborder="0" allowfullscreen="false" scrolling="no" height="208" width="370"></iframe><a href="https://www.twitch.tv/videos/225408461?tt_content=text_link&tt_medium=vod_embed" style="padding:2px 0px 4px; display:block; width:345px; font-weight:normal; font-size:10px; text-decoration:underline;"></a>
+        </div>
+
+    </div>
+
+
+
+	<div style="text-align:center "><!-- Begin Footer -->
+
+        <div style="text-align: center">
+
+              <strong style="font-size: 10px">Copyright 2018 Castnautas. Todos os direitos reservados.</strong>
+
+        </div>
+
+
+
+
+    </div>
+    </div>
+</body>
+</html>

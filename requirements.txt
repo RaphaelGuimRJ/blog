@@ -1,0 +1,7 @@
+Django==2.0.5
+Pillow==5.0.0
+pytz
+django-suit==0.2.25
+psycopg2
+gunicorn
+django-ckeditor

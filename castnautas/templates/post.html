@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <h3 class="title-bg"><a href="/post/{{ postagem.pk }}" >{{ postagem }} </a></h3>
+    <div class="post-content">
+                    <a href="#"><img src="{{ postagem.imagem_grande.url }}" alt="Post Thumb"></a>
+
+                    <div class="post-body">
+                       {{ postagem.texto|safe }}
+                    </div>
+                    <div class="post-summary-footer"  style="font-size:12px">
+                        <ul class="post-data">
+                            <i class="icon-calendar"></i> {{ postagem.dia }}
+
+                            <span class="icon-tags"></span>
+
+                            {% for tag in postagem.categorias.all %}
+                                <a href="#">{{ tag }}</a>
+                            {% endfor %}
+
+
+                        </ul>
+                    </div>
+                </div>
+
+    <div class="fb-comments" data-href="{{ postagem.url_comentarios }}" data-numposts="5"></div>
+{% endblock body%}

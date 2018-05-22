@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block headline %}
+
+        <div class="row headline"><!-- Begin Headline -->
+
+     	<!-- Slider Carousel
+        ================================================== -->
+        <div class="span8">
+            <div class="flexslider">
+              <ul class="slides">
+
+                {% for postagem in carrossel %}
+
+                  <li><a href="/post/{{ postagem.pk }}"><img src="{{ postagem.imagem_carrossel.url }}" alt="slider" /></a></li>
+                {% endfor %}
+              </ul>
+            </div>
+        </div>
+
+        <!-- Headline Text
+        ================================================== -->
+        <div class="span4">
+        	<h3>Bem Vindo ao Castnautas. <br /></h3>
+            <p class="lead" style="text-align: justify" >Em uma galáxia não tão distante, onde o espaço ainda não é a fronteira final e todo mundo pode te ouvir gritar, <strong>Dio, Gabs, Nanda e Rapha </strong>mandam saudações ao planeta Terra para avisar que está no ar o podcast mais bacanudo deste lado do universo!
+           Prepare seus fones de ouvido, não esqueça sua toalha e sempre tenha em mãos algumas batatas para viajar com os <strong>Castnautas!</strong> </p>
+            <a href="#"><i class="icon-plus-sign"></i>Saiba mais...</a>
+        </div>
+    </div><!-- End Headline -->
+
+
+    {% endblock %}
+
+{% block body %}
+
+
+{% for postagem in postagens %}
+
+            <!-- Blog Post  -->
+            <article class="clearfix">
+                <a href="/post/{{ postagem.pk }}"><img src="{{ postagem.imagem_pequena.url }}" alt="Post Thumb" class="align-left"></a>
+                <h4 class="title-bg"><a href="/post/{{ postagem.pk }}">{{ postagem.titulo }}</a></h4>
+
+
+                    <p>  {{ postagem.resumo }} </p>
+                <a href="/post/{{ postagem.pk }}"><button class="btn btn-mini btn-inverse" type="button">Leia mais</button></a>
+
+                <br/>
+                    <div class="post-summary-footer">
+
+                        <ul class="post-data-3">
+                            <li> <i class="icon-calendar"></i> {{ postagem.dia }} </li>
+
+                        </li>
+                        </ul>
+                    </div>
+            </article>
+
+
+          {% endfor %}
+
+            <!-- Pagination -->
+            <div class="pagination">
+
+                    <div class="pull-left">
+                         <ul>
+                             <li><a href="/{{page_num|add:-1}}">Anterior</a></li>
+                         </ul>
+                    </div>
+
+                    <div class="pull-right">
+                         <ul>
+                             <li><a href="/{{page_num|add:+1}}">Próximo</a></li>
+                         </ul>
+                    </div>
+
+            </div>
+
+
+
+
+{% endblock %}
