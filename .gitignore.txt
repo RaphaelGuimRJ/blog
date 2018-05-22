@@ -45,5 +45,7 @@ setup.py
 *.sqlite3
 enviroment/
 env/
+venv
+venv/
 
 .vscode/
