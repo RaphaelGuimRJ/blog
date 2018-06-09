@@ -18,7 +18,7 @@ class PostagemAdmin(admin.ModelAdmin):
     form = PostagemForm
     fieldsets = [
         (None, {
-            'fields': ('titulo', 'resumo','texto','imagem_carrossel', 'imagem_pequena','imagem_grande','url_comentarios','data','categorias')
+            'fields': ('titulo', 'resumo','texto','imagem_carrossel', 'imagem_pequena','imagem_grande','arquivo_audio','url_comentarios','data','categorias')
         }),
 
     ]
