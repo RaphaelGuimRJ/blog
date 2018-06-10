@@ -8,6 +8,7 @@ from castnautas.models import *
 
 def index(request,page_num=1):
 
+
     if request.method == 'GET':
         postagens = Postagem.objects.order_by('-data')
         pages = Paginator(postagens, 8)
@@ -41,7 +42,7 @@ def post(request, post_num):
 
     else:
         postagem = postagem[0]
-        return render(request,'post.html',{'postagem':postagem})
+        return render(request,'post.html',{'postagem':postagem, 'form':BuscaForm()})
 
 def busca(request,tag,page_num=1):
     if request.method =='GET':
