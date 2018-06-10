@@ -35,14 +35,20 @@ def index(request,page_num=1):
 
 def post(request, post_num):
 
-    postagem =list(Postagem.objects.filter(pk=post_num))
+    if request.method == 'GET':
+        postagem =list(Postagem.objects.filter(pk=post_num))
 
-    if len(postagem) == 0:
-        return redirect ('index')
+        if len(postagem) == 0:
+            return redirect ('index')
 
+        else:
+            postagem = postagem[0]
+            return render(request,'post.html',{'postagem':postagem, 'form':BuscaForm()})
     else:
-        postagem = postagem[0]
-        return render(request,'post.html',{'postagem':postagem, 'form':BuscaForm()})
+        categoria = request.POST['categorias']
+
+        return redirect('busca', tag=categoria, page_num=1)
+
 
 def busca(request,tag,page_num=1):
     if request.method =='GET':
