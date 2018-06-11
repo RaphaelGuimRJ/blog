@@ -60,7 +60,26 @@
 
           {% endfor %}
 
+        {% if tag %}
             <!-- Pagination -->
+            <div class="pagination">
+
+                    <div class="pull-left">
+                         <ul>
+                             <li><a href="/busca/{{ tag }}/{{page_num|add:-1}}">Anterior</a></li>
+                         </ul>
+                    </div>
+
+                    <div class="pull-right">
+                         <ul>
+                             <li><a href="/busca/{{ tag }}/{{page_num|add:+1}}">Anterior</a></li>
+                         </ul>
+                    </div>
+
+            </div>
+
+            {% else %}
+             <!-- Pagination -->
             <div class="pagination">
 
                     <div class="pull-left">
@@ -76,6 +95,8 @@
                     </div>
 
             </div>
+        {% endif %}
+
 
 
 
