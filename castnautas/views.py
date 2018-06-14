@@ -51,6 +51,7 @@ def post(request, post_num):
 
 
 def busca(request, tag, page_num=1):
+
     if request.method == 'GET':
         categorias = list(Categoria.objects.filter(nome=tag))
 
@@ -85,7 +86,6 @@ def busca(request, tag, page_num=1):
         'page_num': page_num,
         'form': BuscaForm(),
         'tag':tag
-
     }
 
     return render(request, 'index.html', context)
