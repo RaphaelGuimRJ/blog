@@ -10,18 +10,16 @@ from castnautas.models import *
 def index(request, page_num=1):
     if request.method == 'GET':
         postagens = Postagem.objects.order_by('-data')
-        pages = Paginator(postagens, 8)
-
-        carrossel = Postagem.objects.order_by('-data')
-
-        carr = Paginator(carrossel, 3)
-
+        pages = Paginator(postagens, 6)
+        carr = Paginator(postagens, 3)
         lista_carr = carr.page(1).object_list
 
-        if int(page_num) > pages.num_pages or int(page_num) == 0:
-            page_num = 1
+        try:
+            page = pages.get_page(page_num)
+        except:
+            page = pages.get_page(1)
 
-        page = pages.page(page_num).object_list
+
         form = BuscaForm()
 
     else:
@@ -61,18 +59,17 @@ def busca(request, tag, page_num=1):
         else:
             categoria = categorias[0]
             postagens = Postagem.objects.filter(categorias=categoria).order_by('-data')
-            pages = Paginator(postagens, 8)
+            pages = Paginator(postagens, 6)
 
         carrossel = Postagem.objects.order_by('-data')
-
         carr = Paginator(carrossel, 3)
-
         lista_carr = carr.page(1).object_list
 
-        if int(page_num) > pages.num_pages or int(page_num) == 0:
-            page_num = 1
+        try:
+            page = pages.get_page(page_num)
+        except:
+            page = pages.get_page(1)
 
-        page = pages.page(page_num).object_list
 
     else:
 
