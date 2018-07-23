@@ -38,9 +38,10 @@ def index(request, page_num=1):
                   context)
 
 
-def post(request, post_num):
+def post(request, titulo):
     if request.method == 'GET':
-        postagem = list(Postagem.objects.filter(pk=post_num))
+        titulo = str(titulo).replace('-',' ')
+        postagem = list(Postagem.objects.filter(titulo__iexact=titulo))
 
         if len(postagem) == 0:
             return redirect('index')

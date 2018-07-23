@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load nome_extras %}
 {% load static %}
 
 {% block headline %}
@@ -43,9 +44,9 @@
 
         <!-- Blog Post  -->
         <article class="clearfix">
-            <a href="/post/{{ postagem.pk }}"><img src="{{ postagem.imagem_pequena.url }}" alt="Post Thumb"
+            <a href="/post/{{ postagem.titulo|nome_post }}"><img src="{{ postagem.imagem_pequena.url }}" alt="Post Thumb"
                                                    class="align-left"></a>
-            <h4 class="title-bg"><a href="/post/{{ postagem.pk }}">{{ postagem.titulo }}</a></h4>
+            <h4 class="title-bg"><a href="/post/{{ postagem.titulo |nome_post }}">{{ postagem.titulo }}</a></h4>
 
 
             <p>  {{ postagem.resumo }} </p>

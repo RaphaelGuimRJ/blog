@@ -1,3 +1,4 @@
+{% load nome_extras %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
     <meta property='og:type' content=article>
     <meta property='og:description' content='{{ descricao }}'/>
     <meta property='og:image' content='http://www.castnautas.com.br{{ postagem.imagem_grande.url }}'/>
-    <meta property='og:url' content='http://www.castnautas.com.br/post/{{ postagem.pk }}'/>
+    <meta property='og:url' content='http://www.castnautas.com.br/post/{{ postagem.titulo|nome_post }}'/>
     <meta property='og:site_name' content='CastNautas'/>
 
 
