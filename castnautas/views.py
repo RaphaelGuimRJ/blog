@@ -19,7 +19,6 @@ def index(request, page_num=1):
         except:
             page = pages.get_page(1)
 
-
         form = BuscaForm()
 
     else:
@@ -27,9 +26,16 @@ def index(request, page_num=1):
         categoria = request.POST['categorias']
 
         return redirect('busca', tag=categoria, page_num=1)
+    context = {'postagens': page,
+               'carrossel': lista_carr,
+               'page_num': page_num,
+               'form': form,
+               'titulo': 'Castnautas',
+               'descricao': 'Em uma galáxia não tão distante, onde o espaço ainda não é a fronteira final e todo mundo pode te ouvir gritar, Dio, Gabs, Nanda e Rapha mandam saudações ao planeta Terra para avisar que está no ar o podcast mais bacanudo deste lado do universo! Prepare seus fones de ouvido, não esqueça sua toalha e sempre tenha em mãos algumas batatas para viajar com os Castnautas!',
 
+               }
     return render(request, 'index.html',
-                  {'postagens': page, 'carrossel': lista_carr, 'page_num': page_num, 'form': form})
+                  context)
 
 
 def post(request, post_num):
@@ -41,7 +47,15 @@ def post(request, post_num):
 
         else:
             postagem = postagem[0]
-            return render(request, 'post.html', {'postagem': postagem, 'form': BuscaForm()})
+
+            context={
+                'postagem': postagem,
+                'form': BuscaForm(),
+                'titulo': postagem.titulo,
+                'descricao': postagem.resumo,
+
+            }
+            return render(request, 'post.html', context)
     else:
         categoria = request.POST['categorias']
 
@@ -49,7 +63,6 @@ def post(request, post_num):
 
 
 def busca(request, tag, page_num=1):
-
     if request.method == 'GET':
         categorias = list(Categoria.objects.filter(nome=tag))
 
@@ -82,7 +95,7 @@ def busca(request, tag, page_num=1):
         'carrossel': lista_carr,
         'page_num': page_num,
         'form': BuscaForm(),
-        'tag':tag
+        'tag': tag
     }
 
     return render(request, 'index.html', context)
