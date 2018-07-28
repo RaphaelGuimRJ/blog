@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load auth_extras %}
+{% load nome_extras %}
 {% load static %}
 
 {% block body %}
@@ -9,17 +11,17 @@
         <div class="post-body">
             <b> <a href="{{ postagem.arquivo_audio.url }}" download>Clique AQUI para fazer Download do Episódio!</a>
 
-            </b><p>
-            <audio controls="controls">
-
-            <source src="{{ postagem.arquivo_audio.url }}" type="audio/mpeg"/>
-                Seu navegador não suporta elementos de audio!
-            </audio>
+            </b>
             <p>
-                {{ postagem.texto|safe  }}
-        </p>
-        </div>
+                <audio controls="controls" id="player">
 
+                    <source src="{{ postagem.arquivo_audio.url }}" type="audio/mpeg"/>
+                    Seu navegador não suporta elementos de audio!
+                </audio>
+            <p>
+                {{ postagem.texto|safe }}
+            </p>
+        </div>
 
 
         <div class="post-summary-footer" style="font-size:12px">
@@ -38,4 +40,61 @@
     </div>
 
     <div class="fb-comments" data-href="{{ postagem.url_comentarios }}" data-numposts="5"></div>
+
+    {% if request.user|has_group:'admin' %}
+
+
+        <table class="table">
+
+            <tbody>
+
+                <tr>
+                    <td>Plays</td>
+                    <td>{{ postagem.plays }}</td>
+                </tr>
+            <tr>
+                    <td>Visitas</td>
+                    <td>{{ postagem.visitas }}</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+            <th>Cidade</th>
+            <th>Visitas</th>
+            </thead>
+            <tbody>
+            {% for visita in postagem.visitas_relatorio %}
+                <tr>
+                    <td>{{ visita }}</td>
+                    <td>{{ postagem.visitas_relatorio|get_item:visita }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+    {% endif %}
+    <script>
+        var player = document.getElementById("player");
+        player.addEventListener("play", function () {
+            var post = {{ postagem.pk }};
+
+            $.ajax(
+                {
+                    type: "GET",
+                    url: "/plays",
+                    data: {
+                        post: post
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    }
+                })
+
+
+        });
+    </script>
 {% endblock body %}

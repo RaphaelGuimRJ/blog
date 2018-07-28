@@ -18,12 +18,12 @@ class PostagemAdmin(admin.ModelAdmin):
     form = PostagemForm
     fieldsets = [
         (None, {
-            'fields': ('titulo', 'resumo','texto','imagem_carrossel', 'imagem_pequena','imagem_grande','arquivo_audio','url_comentarios','data','categorias')
+            'fields': ('titulo', 'resumo','texto','imagem_carrossel', 'imagem_pequena','imagem_grande','arquivo_audio','url_comentarios','data','categorias','plays')
         }),
 
     ]
 
-    list_display = ('titulo','dia' ,'resumo','categorias_list')
+    list_display = ('titulo','dia' ,'resumo','categorias_list','plays','visitas')
 
 
     search_fields = ['id','titulo','data']
@@ -43,3 +43,4 @@ class CategoriaAdmin(admin.ModelAdmin):
 
 admin.site.register(Postagem,PostagemAdmin)
 admin.site.register(Categoria,CategoriaAdmin)
+admin.site.register(Visita)

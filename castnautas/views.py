@@ -1,5 +1,10 @@
+import requests
 from django.core.paginator import Paginator
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from ipware import get_client_ip
+
+
 
 from castnautas.forms import *
 from castnautas.models import *
@@ -40,7 +45,7 @@ def index(request, page_num=1):
 
 def post(request, titulo):
     if request.method == 'GET':
-        titulo = str(titulo).replace('-',' ')
+        titulo = str(titulo).replace('-', ' ')
         postagem = list(Postagem.objects.filter(titulo__iexact=titulo))
 
         if len(postagem) == 0:
@@ -48,8 +53,10 @@ def post(request, titulo):
 
         else:
             postagem = postagem[0]
+            postagem.visitas =  postagem.visitas +1
+            postagem.save()
 
-            context={
+            context = {
                 'postagem': postagem,
                 'form': BuscaForm(),
                 'titulo': postagem.titulo,
@@ -100,3 +107,31 @@ def busca(request, tag, page_num=1):
     }
 
     return render(request, 'index.html', context)
+
+
+def plays(request):
+
+    try:
+        post = Postagem.objects.get(pk=request.GET.get('post'))
+
+        post.plays = post.plays + 1
+        post.save()
+
+        try:
+            ip, is_routable = get_client_ip(request)
+
+            if ip and is_routable:
+                chamada = "http://api.ipstack.com/" + ip + "?access_key=beda9dfa1853ae5fe5bf8756f2ff4683"
+                r = requests.get(chamada)
+                visita = Visita(post,r['city'])
+                visita.save()
+        except:
+            pass
+
+        return HttpResponse('Sucesso em salvar o número de plays')
+    except:
+        print("Falhou")
+        return HttpResponse('Falhou em salvar o número de plays')
+
+
+
