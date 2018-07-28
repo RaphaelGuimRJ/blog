@@ -9,15 +9,16 @@
         <a href="#"><img src="{{ postagem.imagem_grande.url }}" alt="Post Thumb"></a>
 
         <div class="post-body">
-            <b> <a href="{{ postagem.arquivo_audio.url }}" download>Clique AQUI para fazer Download do Episódio!</a>
+            <b> <a href="{{ postagem.arquivo_audio.url }}" download id="download">Clique AQUI para fazer Download do Episódio!</a>
 
             </b>
             <p>
-                <audio controls="controls" id="player">
+                <audio controls="controls" id="player" controlsList="nodownload">
 
                     <source src="{{ postagem.arquivo_audio.url }}" type="audio/mpeg"/>
                     Seu navegador não suporta elementos de audio!
                 </audio>
+            <p>
             <p>
                 {{ postagem.texto|safe }}
             </p>
@@ -79,6 +80,8 @@
     {% endif %}
     <script>
         var player = document.getElementById("player");
+        var download =  document.getElementById("download");
+
         player.addEventListener("play", function () {
             var post = {{ postagem.pk }};
 
@@ -94,7 +97,24 @@
                     }
                 })
 
-
         });
+
+        download.addEventListener("click", function () {
+             var post = {{ postagem.pk }};
+
+            $.ajax(
+                {
+                    type: "GET",
+                    url: "/plays",
+                    data: {
+                        post: post
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    }
+                })
+        });
+
+
     </script>
 {% endblock body %}
