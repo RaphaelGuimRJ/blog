@@ -1,5 +1,6 @@
 import requests
 from django.core.paginator import Paginator
+from django.core.serializers import json
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from ipware import get_client_ip
@@ -123,6 +124,7 @@ def plays(request):
             if ip and is_routable:
                 chamada = "http://api.ipstack.com/" + ip + "?access_key=beda9dfa1853ae5fe5bf8756f2ff4683"
                 r = requests.get(chamada)
+                r = json.loads(r)
                 visita = Visita(post,r['city'])
                 visita.save()
         except:
