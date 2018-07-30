@@ -123,8 +123,7 @@ def plays(request):
 
             if ip and is_routable:
                 chamada = "http://api.ipstack.com/" + ip + "?access_key=beda9dfa1853ae5fe5bf8756f2ff4683"
-                r = requests.get(chamada)
-                r = json.loads(r)
+                r = requests.get(chamada).json()
                 visita = Visita(post,r['city'])
                 visita.save()
         except:
