@@ -14,7 +14,7 @@
 
                     {% for postagem in carrossel %}
 
-                        <li><a href="/post/{{ postagem.pk }}"><img src="{{ postagem.imagem_carrossel.url }}"
+                        <li><a href="/post/{{ postagem.titulo |nome_post }}"><img src="{{ postagem.imagem_carrossel.url }}"
                                                                    alt="slider"/></a></li>
                     {% endfor %}
                 </ul>
